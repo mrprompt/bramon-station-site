@@ -11,3 +11,6 @@ python ./bin/make-stats.py
 git add .
 git commit -am "captures of %date%!"
 git push origin master
+
+pause
+

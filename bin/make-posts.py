@@ -23,28 +23,27 @@ PATH_OF_ANALYZERS = "{}/../_data/".format(PATH)
 PATH_OF_STATIONS = "{}/../_stations/".format(PATH)
 
 
-def populate_tables(captures_list: List):
-    connection_cursor = connection.cursor()
-
-    connection_cursor.execute("""
-    CREATE TABLE IF NOT EXISTS captures (
-        id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-        night_start DATE NOT NULL,
-        station VARCHAR(20) NOT NULL,
-        files TEXT,
-        files_full_path TEXT
-    );
-    """)
-
-    connection_cursor.executemany("""
-    INSERT INTO captures (night_start, station, files, files_full_path)
-    VALUES (?, ?, ?, ?)
-    """, captures_list)
-
-    connection.commit()
-
-
 def organize_captures(stations_captures):
+    def populate_tables(captures_list: List):
+        connection_cursor = connection.cursor()
+
+        connection_cursor.execute("""
+        CREATE TABLE IF NOT EXISTS captures (
+            id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+            night_start DATE NOT NULL,
+            station VARCHAR(20) NOT NULL,
+            files TEXT,
+            files_full_path TEXT
+        );
+        """)
+
+        connection_cursor.executemany("""
+        INSERT INTO captures (night_start, station, files, files_full_path)
+        VALUES (?, ?, ?, ?)
+        """, captures_list)
+
+        connection.commit()
+
     captures_organized = []
     er_filter = "\w{3}\d{1,2}.+P.jpg$"
 
@@ -372,7 +371,7 @@ def cleanup_watches(days: int, station_prefix: str = 'TLP'):
 
 
 def convert_video(video_input: str, video_output: str):
-    ffmpeg_command = ['ffmpeg', '-n -i', video_input, '-c:v libx264 -profile:v baseline -level 3.0 -pix_fmt yuv420p', video_output]
+    ffmpeg_command = ['ffmpeg', '-n', '-i', video_input, '-c:v', 'libx264', '-profile:v', 'baseline', '-level', '3.0', '-pix_fmt', 'yuv420p', video_output]
 
     subprocess.Popen(ffmpeg_command)
 
