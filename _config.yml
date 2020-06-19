@@ -1,0 +1,69 @@
+# Título padrão do site
+title: Meteoros
+
+# Uma descrição para o site
+description: Estações de capturas de meteoros associadas a BRAMON
+
+# Domínio utilizado para o site - opcional
+url: ""
+
+# Altere apenas caso o site rode em um sub-diretório
+baseurl: "/"
+
+# Cidade da estação
+city: "Florianópolis-SC"
+
+# Google Analytics ID
+google_analytics: "UA-"
+
+# Nome e url do bucket no S3
+s3_bucket: ""
+s3_bucket_url: ""
+
+# Chave API do Simple Form
+simple_form_token: 
+
+# Configurações da estação
+# - prefix: Prefixo da estação BRAMON
+# - days: dias a sincronizar (contando com a data atual)
+# - captures: diretório das capturas, um diretório por linha.
+build:
+  prefix: CAM
+  days: 2
+  captures:
+    - "C:/bramon/!data"
+
+# ID das estações, uma por linha
+stations:
+  - CAM1
+
+# Não alterar
+encoding: UTF-8
+highlighter: rouge
+timezone: UTC
+permalink: pretty
+paginate: 15
+pagination_path: "/:num"
+
+exclude:
+  - bin
+  - docker-compose.yml
+  - .idea
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-feed
+
+sass:
+  style: compressed
+
+collections:
+  captures:
+    output: true
+
+  stations:
+    output: true
+
+  watches:
+    output: true

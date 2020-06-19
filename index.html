@@ -1,0 +1,59 @@
+---
+layout: default
+---
+<!--start: Container-->
+<div class="container">
+	<!--start: Row -->
+	<div class="row">
+        {% for post in paginator.posts %}
+            {% assign filter = post.date | date: '%Y%m%d' %}
+            {% assign capture_collections = site.captures | where: "label", filter | sort: "date" %}
+            {% assign counter = 0 %}
+            {% assign cover = false %}
+
+            {% for collection in capture_collections %}
+                {% assign counter = counter | plus: collection.capturas.size %}
+
+                {% if cover == false %}
+                    {% assign cover = collection.capturas %}
+                {% else %}
+                    {% assign cover = cover | concat: collection.capturas %}
+                {% endif %}
+            {% endfor %}
+
+            {% assign capture = cover | sample %}
+
+            <!-- start: Post -->
+            <article class="col-md-4 mb-1">
+                <div class="post-content">
+                    <div class="post-title">
+                        <h2 class="nobreak"><a href="{{ post.url | prepend: site.url }}">{{ post.title }}</a></h2>
+                    </div>
+                    <div class="post-description">
+                        <a href="{{ post.url }}">
+                            <img src="{{ capture.imagem | prepend: site.s3_bucket_url }}"
+                                 class="img img-thumbnail img-responsive"
+                                 alt="capture shot">
+                        </a>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fa fa-calendar"></i> Data: {{ post.date | date: '%d/%m/%Y' }}</span><br>
+                        <span><i class="fa fa-meteor"></i> Capturas: {{ counter }}</span>
+                    </div>
+                </div>
+            </article>
+            <!-- end: Post -->
+
+            {% assign cover = false %}
+            {% assign counter = 0 %}
+        {% endfor %}
+	</div>
+	<!--end: Row -->
+
+	<!--start: Row -->
+	<div class="row">
+        {% include pagination.html %}
+	</div>
+	<!--end: Row -->
+</div>
+<!--end: Container-->

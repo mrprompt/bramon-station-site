@@ -1,0 +1,56 @@
+.mb-1 {
+    margin-bottom: 1em;
+}
+
+.nobreak {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.logo {
+    margin-top: -15px !important;
+}
+
+.logo img {
+    max-height: 50px !important
+}
+
+.stats table {
+    padding: 0;
+    border-collapse: collapse;
+}
+
+.stats table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.stats table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+
+.stats table tr th {
+    font-weight: bold;
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+.stats table tr td {
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+.stats table tr th :first-child, table tr td :first-child {
+    margin-top: 0;
+}
+
+.stats table tr th :last-child, table tr td :last-child {
+    margin-bottom: 0;
+}

@@ -1,0 +1,27 @@
+<!-- Social Button HTML -->
+<div class="row share">
+    <!-- Twitter -->
+    <a href="https://twitter.com/share?url={{ page.url | prepend: site.url }}" target="_blank" class="share-btn twitter">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | prepend: site.url }}" target="_blank" class="share-btn facebook">
+        <i class="fab fa-facebook"></i>
+    </a>
+
+    <!-- StumbleUpon (url, title) -->
+    <a href="https://www.stumbleupon.com/submit?url={{ page.url | prepend: site.url }}" target="_blank" class="share-btn stumbleupon">
+        <i class="fab fa-stumbleupon"></i>
+    </a>
+
+    <!-- Reddit (url, title) -->
+    <a href="https://reddit.com/submit?url={{ page.url | prepend: site.url }}" target="_blank" class="share-btn reddit">
+        <i class="fab fa-reddit"></i>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/shareArticle?url={{ page.url | prepend: site.url }}" target="_blank" class="share-btn linkedin">
+        <i class="fab fa-linkedin"></i>
+    </a>
+</div>

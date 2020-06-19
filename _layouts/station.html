@@ -1,0 +1,42 @@
+{% include header.html %}
+
+<!--start: Container-->
+<div class="container">
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h1>{{ page.station | upcase }}</h1>
+        <p>Listando capturas da estação {{ page.station | upcase }}</p>
+    </div>
+
+	<!--start: Row -->
+	<div class="row">
+        {% include social.html %}
+
+        {% assign posts = site.captures | where: "station", page.station | reverse %}
+
+        {% for post in posts %}
+            {% assign capture = post.capturas | first %}
+            {% assign year = post.label | slice: 0,4 %}
+            {% assign month = post.label | slice: 4, 2 %}
+            {% assign day = post.label | slice: 6, 2 %}
+
+            <article class="col-md-4 mb-1">
+                <div class="post-content">
+                    <div class="post-description">
+                        <a href="/captures/{{ page.station }}_{{ year }}{{ month }}{{ day }}">
+                            <img src="{{ capture.imagem | prepend: site.s3_bucket_url }}" class="img img-thumbnail img-responsive" alt="{{ capture.imagem }}">
+                        </a>
+                    </div>
+                    <div class="post-meta">
+                        <span><i class="fa fa-calendar"></i> Data: {{ day }}/{{ month }}/{{ year }}</span><br>
+                        <span><i class="fa fa-broadcast-tower"></i> Capturas: {{ post.capturas.size }}</span><br>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+	</div>
+	<!--end: Row -->
+</div>
+<!--end: Container-->
+
+{% include footer.html %}

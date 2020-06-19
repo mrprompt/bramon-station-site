@@ -1,0 +1,26 @@
+---
+layout: default
+permalink: o-projeto
+title: Sobre o projeto
+---
+<!--start: Container-->
+<div class="container">
+	<!-- Main component for a primary marketing message or call to action -->
+	<div class="jumbotron">
+		<h1>{{ page.title }}</h1>
+	</div>
+
+	<!--start: Row -->
+	<div class="row">
+		<div class="col-md-12">
+			<p>{{ site.title }} é um site especificamente criado para tornar pública as capturas geradas pelas estações
+				que estão em {{ site.city }} e fazem parte da rede <a href="http://www.bramonmeteor.org" target="_blank">BRAMON</a>.</p>
+
+			<p>Todas as capturas são geradas de forma automatizada pelas estações e enviadas para este site, caso tenha
+			interesse em mais detalhes sobre determinada captura, estação ou sobre o projeto, entre em contato com o
+			operador na página de <a href="{{ '/contato' | prepend: site.url }}">contato</a>.</p>
+		</div>
+	</div>
+	<!--end: Row -->
+</div>
+<!--end: Container-->

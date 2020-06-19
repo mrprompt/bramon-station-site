@@ -1,0 +1,71 @@
+{% include header.html %}
+
+<!--start: Container-->
+<div class="container">
+	<!--start: Row -->
+	<div class="row">
+		{% include social.html %}
+
+		{% assign image = page.capture | replace: 'T.jpg', 'P.jpg' %}
+		{% assign station = image | split: "/" | first %}
+		{% assign analyze = site.data.analyzers[ image ] %}
+
+		<article class="mb-1">
+			<div class="post-content">
+				<div class="post-description embed-responsive embed-responsive-16by9">
+					<video height="480" width="720" controls autoplay loop id="videoPlayer" class="embed-responsive-item">
+						<source src="{{ page.capture | replace: 'T.jpg', '.mp4' | prepend: site.s3_bucket_url }}" type="video/mp4" id="videoSource">
+						Seu navegador não suporta a tag de vídeo.
+					</video>
+				</div>
+				<div class="post-meta mb-1">
+					<span><i class="fa fa-calendar"></i> Data: {{ page.date | date: '%d/%m/%Y' }}</span><br>
+					<span><i class="fa fa-clock"></i> Hora: {{ page.date | date: '%H:%M:%S' }} UTC</span><br>
+					{% if analyze %}
+					<span><i class="fa fa-meteor"></i> Classe: {{ analyze.class }}</span><br>
+					<span><i class="fa fa-sun"></i> Magnitude: {{ analyze.magnitude }}</span><br>
+					<span><i class="fa fa-stopwatch-20"></i> Duração: {{ analyze.duration }}</span><br>
+					{% else %}
+					<span><i class="fa fa-meteor"></i> Classe: não analisado</span><br>
+					<span><i class="fa fa-sun"></i> Magnitude: não analisado</span><br>
+					<span><i class="fa fa-stopwatch-20"></i> Duração: não analisado</span><br>
+					{% endif %}
+				</div>
+				{% if analyze %}
+					{% assign meteor_class = analyze.class | replace: '*', '' %}
+					{% assign shower = site.data.showers[ meteor_class ] %}
+				<div class="post-body">
+					<p>
+						Fenômeno registrado em {{ page.date | date: '%d/%m/%Y' }} por volta das {{ page.date | date: '%H:%M:%S' }} (UTC)
+						pela câmera {{ station }} da estação de monitoramento de {{ site.city }}. <br>
+						A fase luminosa, que durou {{ analyze.duration }} segundos, teve um pico de magnitude de {{ analyze.magnitude }},
+						iniciou-se no azimute {{ analyze.azimute_start }} com uma elevação de {{ analyze.elevation_start }}° e altitude estimada
+						de {{ analyze.altitude_start }} km sobre as coordenadas {{ analyze.latitude_start }}, {{ analyze.longitude_start }}.
+					</p>
+					<p>
+						O meteoro entrou na atmosfera com uma velocidade inicial estimada de {{ analyze.velocity }} km/s.<br>
+						O trajeto visível desapareceu no azimute {{ analyze.azimute_final }} com {{ analyze.elevation_final }}° de elevação e
+						altitude provável de {{ analyze.altitude_final }} km sobre as coordenadas {{ analyze.latitude_final }}, {{ analyze.longitude_final }}.
+					</p>
+					{% if analyze.class != "spo" %}
+					<p>
+						A análise sugeriu também que este meteoro possivelmente pertence à chuva denominada {{ shower.shower_name }}
+						identificada pelo código {{ shower.IAUNo }} {{ shower.Code }} da IAU.<br>
+
+						{% if shower.Parent != "" and shower.Parent != " " %}
+						Esta chuva está relacionada ao corpo parental: {{ shower.Parent }}.
+						{% endif %}
+					</p>
+					<br>
+					<cite>Referência: 1) Rudawska and Jenniskens, 2014</cite>
+					{% endif %}
+				</div>
+				{% endif %}
+			</div>
+		</article>
+	</div>
+	<!--end: Row -->
+</div>
+<!--end: Container-->
+
+{% include footer.html %}

@@ -1,0 +1,71 @@
+{% include header.html %}
+
+{% assign filter = page.date | date: '%Y%m%d' %}
+{% assign capture_collections = site.captures | where: "label", filter | sort: "date" | sort: "station" %}
+{% assign counter = 0 %}
+
+{% for collection in capture_collections %}
+	{% assign counter = counter | plus: collection.capturas.size %}
+{% endfor %}
+
+<!--start: Container-->
+<div class="container">
+	<!-- Main component for a primary marketing message or call to action -->
+	<div class="jumbotron">
+		<h1>Listando capturas de {{ page.date | date: '%d/%m/%Y' }}</h1>
+
+		<p>Total de capturas: <b>{{ counter }}</b></p>
+	</div>
+
+	<!--start: Row -->
+	<div class="row">
+		{% include social.html %}
+	</div>
+	<!--end: Row -->
+
+	{% for collection in capture_collections %}
+		{% assign year = collection.label | slice: 0,4 %}
+		{% assign month = collection.label | slice: 4, 2 %}
+		{% assign day = collection.label | slice: 6, 2 %}
+		<h2><a href="/captures/{{ collection.station }}_{{ year }}{{ month }}{{ day }}">{{ collection.station }}</a></h2>
+
+		<!--start: Row -->
+		<div class="row">
+			{% for capture in collection.capturas %}
+				{% assign base_file = capture.imagem | split: "/" | last %}
+				{% assign file_meta = base_file | split: "_" %}
+				{% assign file_date = file_meta[0] | replace: 'M', '' %}
+				{% assign analyze = site.data.analyzers[ capture.imagem ] %}
+				<article class="col-md-4 mb-1">
+					<div class="post-content">
+						<div class="post-description">
+							<a href="/{{ file_date | slice: 0,4 }}/{{ file_date | slice: 4,2 }}/{{ file_date | slice: 6,2 }}/watch/{{ base_file | replace: 'P.jpg', '' }}">
+								<img src="{{ capture.imagem | prepend: site.s3_bucket_url }}" class="img img-thumbnail img-responsive" alt="{{ base_file }}">
+							</a>
+						</div>
+						<div class="post-meta">
+							<span><i class="fa fa-broadcast-tower"></i> Estação: {{ collection.station }}</span><br>
+							<span><i class="fa fa-calendar"></i> Data: {{ file_date | slice: 6,2 }}/{{ file_date | slice: 4,2 }}/{{ file_date | slice: 0,4 }}</span><br>
+							<span><i class="fa fa-clock"></i> Hora: {{ file_meta[1] | slice: 0,2 }}:{{ file_meta[1] | slice: 2,2 }}:{{ file_meta[1] | slice: 4,2 }} UTC</span><br>
+							{% if analyze %}
+							<span><i class="fa fa-meteor"></i> Classe: {{ analyze.class }}</span><br>
+							<span><i class="fa fa-sun"></i> Magnitude: {{ analyze.magnitude }}</span><br>
+							<span><i class="fa fa-stopwatch-20"></i> Duração: {{ analyze.duration }}</span><br>
+							{% else %}
+							<span><i class="fa fa-meteor"></i> Classe: não analisado</span><br>
+							<span><i class="fa fa-sun"></i> Magnitude: não analisado</span><br>
+							<span><i class="fa fa-stopwatch-20"></i> Duração: não analisado</span><br>
+							{% endif %}
+						</div>
+					</div>
+				</article>
+			{% endfor %}
+		</div>
+		<!--end: Row -->
+
+		<hr class="clear">
+	{% endfor %}
+</div>
+<!--end: Container-->
+
+{% include footer.html %}

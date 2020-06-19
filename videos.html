@@ -1,0 +1,75 @@
+---
+layout: default
+permalink: videos
+title: Vídeos
+videos:
+  - grupo: Tutoriais
+    videos:
+      - titulo: 01 - Limpeza de Falso-Positivos
+        url: https://www.youtube.com/watch?v=IvAdwEzxe7g
+
+      - titulo: 0.1 - Definindo SMLevel
+        url: https://www.youtube.com/watch?v=yjMySgWkF44
+
+      - titulo: 02 - Máscara de Astrometria
+        url: https://www.youtube.com/watch?v=INX1QHOCxHM
+
+      - titulo: 2.1 - Melhorando a Máscara de Cintilação
+        url: https://www.youtube.com/watch?v=eClpVsdOAoM
+
+      - titulo: 03 - Análise Astrométrica de Meteoros
+        url: https://www.youtube.com/watch?v=UzsLBOVxnzA
+
+      - titulo: 04 - Analyser Assist
+        url: https://www.facebook.com/groups/operadorbramon/permalink/1917890281806193/
+
+  - grupo: Hardware
+    videos:
+      - titulo: Funcionamento da Estacao BRAMON
+        url: https://www.youtube.com/watch?v=D0tXVBGK4dg
+
+      - titulo: SCB 2000 - Retirada do filtro IR
+        url: https://www.youtube.com/watch?v=b-waWFbKqIs
+
+      - titulo: 0.2 - Preparando a Câmera SCB 2000
+        url: https://www.youtube.com/watch?v=oORyh7G1moA
+
+      - titulo: 0.5 - Preparando a Câmera SCB 5000
+        url: https://www.youtube.com/watch?v=hFDECfS9aWQ
+---
+<!--start: Container-->
+<div class="container">
+	<!-- Main component for a primary marketing message or call to action -->
+	<div class="jumbotron">
+		<h1>{{ page.title | upcase }}</h1>
+		<p>Vídeos da BRAMON</p>
+	</div>
+
+	{% for grupo in page.videos %}
+	<!--start: Row -->
+	<div class="row">
+		<div class="col-md-12">
+			<h2>{{ grupo.grupo }}</h2>
+		</div>
+
+		{% for video in grupo.videos %}
+			{% assign video_meta = video.url | split: "=" %}
+		<article class="col-md-4 mb-1">
+			<div class="post-content">
+				<div class="post-description">
+					<a href="{{ video.url }}" target="_blank">
+						<img src="https://img.youtube.com/vi/{{ video_meta | last }}/mqdefault.jpg"
+							 class="img img-thumbnail img-responsive">
+					</a>
+				</div>
+				<div class="post-meta">
+					<span><i class="fa fa-clip"></i> {{ video.titulo }}</span><br>
+				</div>
+			</div>
+		</article>
+		{% endfor %}
+	</div>
+	<!--end: Row -->
+	{% endfor %}
+</div>
+<!--end: Container-->

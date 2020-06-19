@@ -1,0 +1,57 @@
+---
+layout: default
+permalink: contato
+title: Contato
+---
+<!--start: Container-->
+<div class="container">
+	<!-- Main component for a primary marketing message or call to action -->
+	<div class="jumbotron">
+		<h1>{{ page.title }}</h1>
+	</div>
+
+	<!--start: Row -->
+	<div class="row">
+        <div class="col-md-12">
+			<form class="form-horizontal"
+				  action="https://getsimpleform.com/messages?form_api_token={{ site.simple_form_token }}"
+				  method="post">
+				<div class="form-group">
+					<label for="nome" class="control-label col-xs-4">Nome</label>
+					<div class="col-xs-8">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-address-card"></i>
+							</div>
+							<input id="nome" name="nome" type="text" class="form-control" required="required">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="email" class="control-label col-xs-4">E-mail</label>
+					<div class="col-xs-8">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-at"></i>
+							</div>
+							<input id="email" name="email" type="text" required="required" class="form-control">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="textarea" class="control-label col-xs-4">Text Area</label>
+					<div class="col-xs-8">
+						<textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-xs-offset-4 col-xs-8">
+						<button name="submit" type="submit" class="btn btn-primary">Enviar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--end: Row -->
+</div>
+<!--end: Container-->
