@@ -68,7 +68,7 @@ configuração necessária.
 
 ## Publicando
 
-Para efetuar a publicação do site, você precisa apenas rodar o script `publish.bat` localizado no diretório `bin` do 
+Para efetuar a publicação do site, você precisa apenas rodar o script `make-posts.py` localizado no diretório `bin` do 
 projeto, o mesmo irá atualizar os arquivos necessários, efetuar um commit e um push para o repositório, em alguns minutos
 seu site estará publicado - dependendo do número de capturas e etc, o tempo do build pode variar bastante.
 
