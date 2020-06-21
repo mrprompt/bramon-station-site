@@ -74,10 +74,9 @@ seu site estará publicado - dependendo do número de capturas e etc, o tempo do
 
 ## O diretório bin
 
-- *make-posts.py*: percorre os diretórios de capturas, converte os arquivos e gera todos os dados necessários para alimentar o site.
+- *make-posts.py*: percorre os diretórios de capturas, converte os arquivos, gera todos os dados necessários para alimentar o site e envia para o repositório.
 - *make-showers.py* responsável por atualizar o banco de dados de chuvas de meteoros, você pode baixar o CSV mais atualizado [aqui](https://www.ta3.sk/IAUC22DB/MDC2007/Etc/streamfulldata.csv).
 - *make-stats.py*: atualiza a página de estatísticas mensais de cada estação.
-- *publish.bat*: roda os script necessários para atualização do site e as envia para o repositório. 
 
 ## Rodando localmente
 

@@ -6,16 +6,14 @@ import os
 import re
 import sqlite3
 import subprocess
-import logging
-import boto3
 import yaml
-from botocore.exceptions import ClientError
-from boto3.s3.transfer import TransferConfig
 from xml.dom import minidom
 from typing import List
+from git import Repo
 
 
 PATH = os.path.dirname(__file__)
+PATH_OF_GIT_REPO = "{}/../".format(PATH)
 CONFIG_FILE = "{}/../_config.yml".format(PATH)
 PATH_OF_SITE_POSTS = "{}/../_posts/".format(PATH)
 PATH_OF_SITE_CAPTURES = "{}/../_captures/".format(PATH)
@@ -372,12 +370,26 @@ def cleanup_watches(days: int, station_prefix: str = 'TLP'):
 
 
 def convert_video(video_input: str, video_output: str):
-    ffmpeg_command = ['ffmpeg', '-n', '-i', video_input, '-c:v', 'libx264', '-profile:v', 'baseline', '-level', '3.0', '-pix_fmt', 'yuv420p', video_output]
+    convert_command = [
+        'ffmpeg',
+        '-n',
+        '-i',
+        video_input,
+        '-c:v',
+        'libx264',
+        '-profile:v',
+        'baseline',
+        '-level',
+        '3.0',
+        '-pix_fmt',
+        'yuv420p',
+        video_output
+    ]
 
-    subprocess.Popen(ffmpeg_command)
+    subprocess.Popen(convert_command)
 
 
-def upload_captures(captures_dir: list, prefix: str, days: int):
+def upload_captures(captures_dir: list):
     for directory in captures_dir:
         os.chdir(directory)
 
@@ -394,6 +406,8 @@ def upload_captures(captures_dir: list, prefix: str, days: int):
         ]
 
         subprocess.Popen(sync_command)
+
+    os.chdir(PATH)
 
 
 def load_config():
@@ -412,6 +426,19 @@ def generate_stations():
         filehandle.write("station: {}\n".format(station))
         filehandle.write("navigation_weight: {}\n".format(index))
         filehandle.write("---\n")
+
+
+def git_push():
+    try:
+        today = datetime.date.today()
+        repo = Repo(PATH_OF_GIT_REPO)
+        repo.git.add(update=True)
+        repo.index.commit("Captures of {}".format(today))
+
+        origin = repo.remote(name='origin')
+        origin.push()
+    except:
+        print('Some error occured while pushing the code')
 
 
 if __name__ == '__main__':
@@ -458,7 +485,10 @@ if __name__ == '__main__':
     generate_analyzers()
 
     print("- Upload captures")
-    upload_captures(captures_dir, station_prefix, days_back)
+    upload_captures(captures_dir)
+
+    print("- Push to git")
+    git_push()
 
     print("- Closing database connection")
     connection.close()
