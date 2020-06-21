@@ -14,7 +14,7 @@ baseurl: "/"
 city: "Florianópolis-SC"
 
 # Google Analytics ID
-google_analytics: "UA-"
+google_analytics: ""
 
 # Nome e url do bucket no S3
 s3_bucket: ""
