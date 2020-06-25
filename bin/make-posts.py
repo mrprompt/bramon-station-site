@@ -389,27 +389,6 @@ def convert_video(video_input: str, video_output: str):
     subprocess.Popen(convert_command)
 
 
-def upload_captures(captures_dir: list):
-    for directory in captures_dir:
-        os.chdir(directory)
-
-        sync_command = [
-            'aws',
-            's3',
-            'sync',
-            '.',
-            's3://' + config['s3_bucket'] + '/',
-            '--exclude', '"*$RECYCLE.BIN*"',
-            '--exclude', '"*Backups*"',
-            '--exclude', '"*WindowsImageBackup*"',
-            '--exclude', '"*Boot*"'
-        ]
-
-        subprocess.Popen(sync_command)
-
-    os.chdir(PATH)
-
-
 def load_config():
     with open(CONFIG_FILE, "r") as f:
         return yaml.load(f)
@@ -483,9 +462,6 @@ if __name__ == '__main__':
 
     print("- Creating analyzers")
     generate_analyzers()
-
-    print("- Upload captures")
-    upload_captures(captures_dir)
 
     print("- Push to git")
     git_push()

@@ -16,9 +16,8 @@ city: "Florianópolis-SC"
 # Google Analytics ID
 google_analytics: ""
 
-# Nome e url do bucket no S3
-s3_bucket: ""
-s3_bucket_url: ""
+# Prefixo de hospedagem das imagens e vídeos de capturas
+storage_url: ""
 
 # Chave API do Simple Form
 simple_form_token: 

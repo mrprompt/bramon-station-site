@@ -24,7 +24,7 @@
                 <div class="post-content">
                     <div class="post-description">
                         <a href="/captures/{{ page.station }}_{{ year }}{{ month }}{{ day }}">
-                            <img src="{{ capture.imagem | prepend: site.s3_bucket_url }}" class="img img-thumbnail img-responsive" alt="{{ capture.imagem }}">
+                            <img src="{{ capture.imagem | prepend: site.storage_url }}" class="img img-thumbnail img-responsive" alt="{{ capture.imagem }}">
                         </a>
                     </div>
                     <div class="post-meta">

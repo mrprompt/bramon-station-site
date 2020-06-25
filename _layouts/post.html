@@ -40,7 +40,7 @@
 					<div class="post-content">
 						<div class="post-description">
 							<a href="/{{ file_date | slice: 0,4 }}/{{ file_date | slice: 4,2 }}/{{ file_date | slice: 6,2 }}/watch/{{ base_file | replace: 'P.jpg', '' }}">
-								<img src="{{ capture.imagem | prepend: site.s3_bucket_url }}" class="img img-thumbnail img-responsive" alt="{{ base_file }}">
+								<img src="{{ capture.imagem | prepend: site.storage_url }}" class="img img-thumbnail img-responsive" alt="{{ base_file }}">
 							</a>
 						</div>
 						<div class="post-meta">

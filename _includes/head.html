@@ -19,14 +19,14 @@
     {% if page.preview %}
     <meta property="og:type" content="article">
     <meta property="og:description" content="{{ page.title }}">
-    <meta property="og:image" content="{{ page.preview | prepend: site.s3_bucket_url }}">
+    <meta property="og:image" content="{{ page.preview | prepend: site.storage_url }}">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="720">
     <meta property="og:image:height" content="480">
     {% else if page.capture %}
     <meta property="og:type" content="article">
     <meta property="og:description" content="{{ page.title }}">
-    <meta property="og:image" content="{{ page.capture | prepend: site.s3_bucket_url }}">
+    <meta property="og:image" content="{{ page.capture | prepend: site.storage_url }}">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="720">
     <meta property="og:image:height" content="480">

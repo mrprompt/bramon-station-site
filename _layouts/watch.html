@@ -14,7 +14,7 @@
 			<div class="post-content">
 				<div class="post-description embed-responsive embed-responsive-16by9">
 					<video height="480" width="720" controls autoplay loop id="videoPlayer" class="embed-responsive-item">
-						<source src="{{ page.capture | replace: 'T.jpg', '.mp4' | prepend: site.s3_bucket_url }}" type="video/mp4" id="videoSource">
+						<source src="{{ page.capture | replace: 'T.jpg', '.mp4' | prepend: site.storage_url }}" type="video/mp4" id="videoSource">
 						Seu navegador não suporta a tag de vídeo.
 					</video>
 				</div>
